@@ -1,4 +1,5 @@
-const { Phaser } = require("../lib/phaser");
+//Part of first renditions of this code, but not in later ones. Also caused errors
+//const { Phaser } = require("../lib/phaser");
 
 console.log("Hello from main.js");
 
