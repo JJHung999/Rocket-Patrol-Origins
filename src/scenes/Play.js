@@ -11,6 +11,12 @@ class Play extends Phaser.Scene {
 
     }
     create(){
+
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+      
         //background
         this.starfield = this.add.tileSprite(20, 20, game.config.width, game.config.height, "starfield").setOrigin(0,0);
 
@@ -26,9 +32,21 @@ class Play extends Phaser.Scene {
         // add rocket (p1)
         let p1Rocket = new Rocket(this, game.config.width/2, 431, 'rocket').setOrigin(0.5, 0);
         this.add.existing(p1Rocket);
+        
     }
 
     update() {
+        // TODO: only move if not firing
+        // TODO: clamp to visible area
+	    if(keyLEFT.isDown) {
+    	    this.x -= this.moveSpeed;
+        } else if (keyRIGHT.isDown) {
+    	    this.x += this.moveSpeed;
+        }
+
+        if (Phaser.Input.keyboard.JustDown()){
+            debugger;
+        }
         this.starfield.tilePositionX -= 4;
     }
 }
