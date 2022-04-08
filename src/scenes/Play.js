@@ -3,8 +3,7 @@ class Play extends Phaser.Scene {
         super("Play");
     }
     preload(){
-        this.load.image('rocket', './assets/rocket.png');
-        this.load.image('spaceship', './assets/rocket.png');
+
         this.load.image('starfield', './assets/starfield.png');
 
     }
