@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
     }
     create(){
         //background
-        this.add.tileSprite(20, 20, game.config.width, game.config.heigh, "starfield").setOrigin(0,0);
+        this.add.tileSprite(20, 20, game.config.width, game.config.height, "starfield").setOrigin(0,0);
 
         //green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
