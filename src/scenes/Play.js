@@ -36,17 +36,14 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        // TODO: only move if not firing
-        // TODO: clamp to visible area
-	    if(keyLEFT.isDown) {
-    	    this.x -= this.moveSpeed;
-        } else if (keyRIGHT.isDown) {
-    	    this.x += this.moveSpeed;
+        this.starfield.tilePositionX -= 4;
+        const movementspeed = 4; 
+        if(keyLEFT.isDown){
+            this.p1Rocket.x -= movementspeed;
+        }
+        if(keyRIGHT.isDown){
+            this.p1Rocket.x += movementspeed;
         }
 
-        if (Phaser.Input.keyboard.JustDown()){
-            debugger;
-        }
-        this.starfield.tilePositionX -= 4;
     }
 }
