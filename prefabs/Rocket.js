@@ -2,27 +2,31 @@ class Rocket extends Phaser.GameObjects.GameObjects.Sprite{
     constructor(scene, x, y, texture, frame) {
         this.moveSpeed = 2;
 	    super(scene, x, y, texture, frame);
+        this.firing = false;
 
 	    // add object to existing scene
 	    scene.add.existing(this);
     }
     update(){
-        //if(this.firing){
-            //this.y -= 10;
-	    // TODO: only move if not firing
-        // TODO: clamp to visible area
-        if(keyLEFT.isDown) {
-            this.x -= this.moveSpeed;
-        } else if (keyRIGHT.isDown) {
-            this.x += this.moveSpeed;
+        const movementspeed = 4; 
+        if(keyLEFT.isDown){
+            this.x -= movementspeed;
         }
-    
-    
-        //}
+        if(keyRIGHT.isDown){
+            this.x += movementspeed;
+        }
+        if(this.firing){
+            this.y -= 10;
+
+            if(this.y < 0){
+                this.reset();
+            }
+        }
     }
 
     reset(){
-        
+        this.y = 431;
+        this.firing = false;
     }
 
 }
