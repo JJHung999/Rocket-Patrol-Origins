@@ -5,9 +5,13 @@ class Play extends Phaser.Scene {
     }
     preload(){
 
-        this.load.image('starfield', './assets/starfield.png');
+        // loading images/tile sprites
         this.load.image('rocket', './assets/Rocket.png');
         this.load.image('spaceship', './assets/SpaceShip.png');
+        this.load.image('starfield', './assets/starfield.png');
+
+        // load spritesheet
+        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 
     }
     create(){
@@ -20,6 +24,10 @@ class Play extends Phaser.Scene {
         //background
         this.starfield = this.add.tileSprite(20, 20, game.config.width, game.config.height, "starfield").setOrigin(0,0);
 
+        // add rocket (p1)
+        this.p1Rocket = new Rocket(this, game.config.width/2, 431, 'rocket').setOrigin(0, 0);
+        this.p1Rocket.reset();
+
         //green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
 
@@ -29,14 +37,18 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
 
-        // add rocket (p1)
-        this.p1Rocket = new Rocket (this, game.config.width/2, 431, 'rocket').setOrigin(0, 0);
-        this.p1Rocket.reset();
-
         // add ship
-        this.shipA = new SpaceShip (this,300,300, 'ship');
-        this.shipB = new SpaceShip (this,400,150, 'ship');
-        this.shipC = new SpaceShip (this,100,200, 'ship');
+        this.shipA = new SpaceShip(this,300,300, 'spaceship');
+        this.shipB = new SpaceShip(this,400,150, 'spaceship');
+        this.shipC = new SpaceShip(this,100,200, 'spaceship');
+
+        //explosion animation config
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+            framerate:30
+        });
+
     }
 
     
@@ -49,7 +61,9 @@ class Play extends Phaser.Scene {
         this.shipC.update();
 
         if(Phaser.Input.Keyboard.JustDown(keyF)){
+            console.log("Key Down")
             this.p1Rocket.firing =true;
-        }
+        }    
+
     }
 }
