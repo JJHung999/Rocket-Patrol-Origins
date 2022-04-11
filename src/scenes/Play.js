@@ -101,12 +101,6 @@ class Play extends Phaser.Scene {
             this.shipC.update();
         } 
 
-        if(Phaser.Input.Keyboard.JustDown(keyF)){
-            console.log("Key Down")
-            this.p1Rocket.firing =true;
-        }
-
-
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.shipC)) {
             this.p1Rocket.reset();
@@ -135,6 +129,7 @@ class Play extends Phaser.Scene {
         }
     }
     shipExplode(ship) {
+        this.sound.play('sfx_explosion');
         // temporarily hide ship
         ship.alpha = 0;
         // create explosion sprite at ship's position
