@@ -42,12 +42,18 @@ class Play extends Phaser.Scene {
         this.shipB = new SpaceShip(this,400,150, 'spaceship');
         this.shipC = new SpaceShip(this,100,200, 'spaceship');
 
+
+        //ship explodes function goes here
+
         //explosion animation config
         this.anims.create({
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             framerate:30
         });
+
+        // initialize score
+        this.p1Score = 0;
 
     }
 
@@ -63,7 +69,34 @@ class Play extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyF)){
             console.log("Key Down")
             this.p1Rocket.firing =true;
-        }    
+        }
 
+
+        // check collisions
+        if(this.checkCollision(this.p1Rocket, this.shipC)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.shipC);   
+        }
+        if (this.checkCollision(this.p1Rocket, this.shipB)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.shipB);
+        }
+        if (this.checkCollision(this.p1Rocket, this.shipA)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.shipA);
+        }
+
+    }
+    //collision check goes here if it could work
+    checkCollision(Rocket, SpaceShip) {
+        if (Rocket.x < SpaceShip.x + SpaceShip.width && 
+            Rocket.x + Rocket.width > SpaceShip.x && 
+            Rocket.y < SpaceShip.y + SpaceShip.height &&
+            Rocket.height + Rocket.y > SpaceShip. y) {
+                return true;
+                console.log("hit")
+        } else {
+            return false;
+        }
     }
 }
