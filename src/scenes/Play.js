@@ -4,6 +4,9 @@ class Play extends Phaser.Scene {
         super("Play");
     }
     preload(){
+        //load music
+        this.load.audio('music', './assets/Space_half_8_bit.ogg'); //Space 8 Bit by TAD, Copyright Free Music
+
         // load audio
         this.load.audio('sfx_select', './assets/blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/explosion38.wav');
@@ -20,6 +23,7 @@ class Play extends Phaser.Scene {
     }
     create(){
 
+        //controls
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -78,6 +82,7 @@ class Play extends Phaser.Scene {
             // GAME OVER flag
             this.gameOver = false;
 
+
             // 60-second play clock
             scoreConfig.fixedWidth = 0;
             this.clock = this.time.delayedCall(60000, () => {
@@ -114,6 +119,7 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.shipA);
         }
+        this.scoreLeft.text = this.p1Score;  
 
     }
     //collision check goes here if it could work
@@ -141,6 +147,7 @@ class Play extends Phaser.Scene {
           boom.destroy();                       // remove explosion sprite
         });
         this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;         
+        console.log(this.p1Score)
+        this.scoreLeft.text = this.p1Score;   
       } 
 }
